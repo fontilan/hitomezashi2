@@ -1,59 +1,63 @@
 const gap = 40;
-// TO RANDOMIZE THE GAP (DENSITY) A LITTLE BIT USE THE LINES BELOW:
-//
-// const gap = randomGap();
-// function randomGap() {
-//   return Math.floor(Math.random() * 10 + 15);
-// }
-//
-const lineWeight = 3;
-//
-// TO RANDOMIZE THE LINE WEIGHT A LITTLE BIT USE THE LINES BELOW:
-//
-// const lineWeight = randomWeight();
-// function randomWeight() {
-//   return Math.floor(Math.random() * 3 + 3);
-// }
-//
-const backgroundColor = "#161a1d";
 
-function randomColor() {
-  return Math.floor(Math.random() * 256);
-}
+const lineWeight = 1;
 
-function zeroOrOne() {
-  return Math.floor(Math.random() * 2);
-}
+const shade01 = "#E6DFFF";
+const shade02 = "#D9BFFF";
+const shade03 = "#CC9EFF";
+const shade04 = "#C588FF";
+const shade05 = "#AC71FF";
 
 function setup() {
   createCanvas(windowWidth * 0.999, windowHeight * 0.999);
 }
 
-const triangleHeight = (gap * Math.sqrt(3)) / 2;
-
 function draw() {
-  background(backgroundColor);
-  stroke("red");
+  background("#161a1d");
+  angleMode(DEGREES);
   strokeWeight(lineWeight);
-  for (y = 0; y <= windowHeight; y += triangleHeight) {
-    for (x = zeroOrOne() * gap; x <= windowWidth; x += gap) {
+
+  stroke(shade01);
+  for (y = 0; y <= height; y += gap) {
+    for (x = random([0, 1]) * gap; x <= width; x += gap) {
+      point(x, y);
+      x += gap;
+    }
+  }
+
+  stroke(shade02);
+  for (y = 0; y <= height; y += 2 * gap) {
+    for (x = random([0, 1]) * gap; x <= width; x += 2 * gap) {
       line(x, y, x + gap, y);
-      x += triangleHeight;
+      x += gap;
     }
   }
-  stroke("green");
-  for (x = 0; x <= windowWidth; x += gap) {
-    for (y = zeroOrOne() * gap; y <= windowHeight; y += gap) {
-      line(x, y, x + gap / 2, y + triangleHeight);
-      y += triangleHeight;
+
+  stroke(shade03);
+  for (x = 0; x <= width; x += 2 * gap) {
+    for (y = random([0, 1]) * gap; y <= height; y += 2 * gap) {
+      line(x, y, x, y + gap);
+      y += gap;
     }
   }
-  // stroke("blue");
-  // for (x = 0; x <= windowWidth; x += gap) {
-  //   for (y = zeroOrOne() * gap; y <= windowHeight; y += gap) {
-  //     line(x, y, x - gap / 2, y + gap);
-  //     y += gap;
-  //   }
-  // }
+
+  shearX(45);
+  stroke(shade04);
+  for (x = -10000; x <= width; x += 2 * gap) {
+    for (y = random([0, 1]) * gap; y <= height; y += 2 * gap) {
+      line(x, y, x, y + gap);
+      y += gap;
+    }
+  }
+
+  shearX(-45);
+  shearX(-45);
+  stroke(shade05);
+  for (x = 0; x <= 2 * width; x += 2 * gap) {
+    for (y = random([0, 1]) * gap; y <= height; y += 2 * gap) {
+      line(x, y, x, y + gap);
+      y += gap;
+    }
+  }
   noLoop();
 }
